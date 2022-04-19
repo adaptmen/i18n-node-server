@@ -20,18 +20,18 @@ function setupRoutes() {
 	});
 
 	app.get("/api/named", (req, res) => {
-		res.send(namedCC);
+		res.json(namedCC);
 	});
 
 	app.get("/api/cc", (req, res) => {
-		res.send(countryCodes);
+		res.json(countryCodes);
 	});
 
 	app.get("/api/all", (req, res) => {
 		const filterCountryCodesStr = req.query.filter as string || "";
 		const filterCC: string[] = filterCountryCodesStr.split(",").filter(Boolean);
 		const allRecords = fsService.getAllRecords(filterCC);
-		res.send(allRecords);
+		res.json(allRecords);
 	});
 
 	app.get("/api/record/:ident", (req, res) => {
@@ -47,7 +47,7 @@ function setupRoutes() {
 				if (countryCode && current.hasOwnProperty(countryCode)) {
 					res.send(current[countryCode]);
 				} else {
-					res.send(current);
+					res.json(current);
 				}
 			}
 		} else {
