@@ -17,7 +17,7 @@
 	},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adaptmen/localization-tool.git"
+    "url": "git+https://github.com/adaptmen/i18n-node-server.git"
   },
   "keywords": [
     "internationalization-tool",
@@ -34,9 +34,9 @@
   "author": "Denis Voronchikhin",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adaptmen/localization-tool/issues"
+    "url": "https://github.com/adaptmen/i18n-node-server/issues"
   },
-  "homepage": "https://github.com/adaptmen/localization-tool#readme",
+  "homepage": "https://github.com/adaptmen/i18n-node-server#readme",
   "dependencies": {
     "express": "4.17.3",
     "typescript": "4.6.3",
