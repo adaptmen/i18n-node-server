@@ -8,6 +8,8 @@ Supports [ISO 3166-1 codes](https://en.wikipedia.org/wiki/ISO_3166-1)
 
 ## Usage
 
-For install run command `npm i i18n-node-server`
+For install run command `npm i -g i18n-node-server`
 
-For help `i18n-node-server --help`
+Run `i18n-node-server --help` for details
+
+Run `i18n-node-server` for start http-server
