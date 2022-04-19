@@ -1,6 +1,6 @@
 {
   "name": "i18n-node-server",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "dist/main.js",
   "engines": {
