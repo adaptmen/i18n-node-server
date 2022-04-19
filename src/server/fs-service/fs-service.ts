@@ -6,6 +6,7 @@ import { IDENT_EXISTS, IDENT_NOT_VALID } from "./errors";
 import { FileReader } from "./file-reader";
 import { existsSync, readdirSync } from "fs";
 import { join } from "path";
+import { pick } from "./utils/pick";
 
 
 export type Records = {[countryCode: string]: string};
@@ -63,19 +64,21 @@ export class FsService {
 		return this.updateRecords(ident, {[cc]: value});
 	}
 
-	getAllRecords() {
-		const allRecords = readdirSync(this.dataDirPath)
-		.filter(fileName => fileName.endsWith(".json"))
-		.reduce((acc, fileName) => {
-			const ident = fileName.replace(/.json$/g, "");
-			acc[ident] = FileReader.readFile(join(this.dataDirPath, fileName));
+	getAllRecords(filterCC: string[] = []) {
+		const allRecords = readdirSync(this.dataDirPath, {withFileTypes: true})
+		.filter(dirent => dirent.isFile() && dirent.name.endsWith(".json"))
+		.reduce((acc, dirent) => {
+			const ident = dirent.name.replace(/.json$/g, "");
+			const fileContent = FileReader.readFile(join(this.dataDirPath, dirent.name));
+			acc[ident] = pick(fileContent, ...filterCC)
 			return acc;
 		}, {"timestamp-i18n-tool": new Date().toISOString()});
 		return allRecords;
 	}
 
-	getRecordsByIdent(ident: string): Records | Error {
-		return FileReader.readFile(join(this.dataDirPath, ident + ".json"));
+	getRecordsByIdent(ident: string, filterCC: string[] = []): Records | Error {
+		const result = FileReader.readFile(join(this.dataDirPath, ident + ".json"));
+		return pick(result, ...filterCC);
 	}
 
 }

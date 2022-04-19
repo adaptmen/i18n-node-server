@@ -28,15 +28,19 @@ function setupRoutes() {
 	});
 
 	app.get("/api/all", (req, res) => {
-		const allRecords = fsService.getAllRecords();
+		const filterCountryCodesStr = req.query.filter as string || "";
+		const filterCC: string[] = filterCountryCodesStr.split(",").filter(Boolean);
+		const allRecords = fsService.getAllRecords(filterCC);
 		res.send(allRecords);
 	});
 
 	app.get("/api/record/:ident", (req, res) => {
 		const {ident} = req.params;
 		const countryCode = req.query.countryCode as string;
+		const filterCountryCodesStr = req.query.filter as string || "";
 		if (validateIdent(ident)) {
-			const current = fsService.getRecordsByIdent(ident);
+			const filterCC: string[] = filterCountryCodesStr.split(",").filter(Boolean);
+			const current = fsService.getRecordsByIdent(ident, filterCC);
 			if (current instanceof Error) {
 				res.status(400).send(current.message);
 			} else {
